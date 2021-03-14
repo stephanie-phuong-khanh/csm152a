@@ -18,6 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
 module parking_meter(
     input add1, // add 60 seconds
     input add2, // add 120 seconds
@@ -72,9 +73,10 @@ module parking_meter(
             next_state = GTE_180;
     end
 
-    // Update timer
-    always @ (posedge clk) // posedge add1, posedge add2, posedge add3, posedge add4, posedge rst1, posedge rst2
+    // Update local data structures
+    always @ (posedge clk)
     begin
+        // Update tm
         if (rst) begin
             tm <= 0;
             count_100 <= 0;

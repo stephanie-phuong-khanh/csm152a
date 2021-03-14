@@ -87,34 +87,49 @@ module testbench_604981556;
         
 		// Add stimulus here
 		zero_flash();
-		#10000000;
+		#100000000;
 		countdown_from_60();
-		#10000000;
+		#100000000;
 		countdown_from_300();
-		#10000000;
+		#100000000;
 		reset();
-		#10000000;
+		#100000000;
 		spec();
-		#10000000;
+		#100000000;
 	end
 
 ////// TEST CASES /////
 
-task spec; begin
+task zero_flash; begin
+	pos_edge();		rst = 1;		neg_edge();
+	pos_edge();		rst = 0;		neg_edge();
+	i = 1000;
+	while (i > 0) begin 
+		full_cyc();
+		i = i - 1;
+	end
+end endtask
+
+task countdown_from_60; begin
+	pos_edge();		rst = 1;		neg_edge();
+	pos_edge();		rst = 0;		neg_edge();
+	full_cyc();
+	pos_edge();		add1 = 1;		neg_edge();
+	pos_edge();		add1 = 0;		neg_edge();
+	i = 6100;
+	while (i > 0) begin 
+		full_cyc();
+		i = i - 1;
+	end
+end endtask
+
+task countdown_from_300; begin
 	pos_edge();		rst = 1;		neg_edge();
 	pos_edge();		rst = 0;		neg_edge();
 	full_cyc();
 	pos_edge();		add4 = 1;		neg_edge();
 	pos_edge();		add4 = 0;		neg_edge();
-	i = 12000;
-	while (i > 0) begin 
-		full_cyc();
-		i = i - 1;
-	end
-	full_cyc();
-	pos_edge();		add2 = 1;		neg_edge();
-	pos_edge();		add2 = 0;		neg_edge();
-	i = 1000;
+	i = 15100;
 	while (i > 0) begin 
 		full_cyc();
 		i = i - 1;
@@ -141,36 +156,21 @@ task reset; begin
 	end
 end endtask
 
-task countdown_from_300; begin
+task spec; begin
 	pos_edge();		rst = 1;		neg_edge();
 	pos_edge();		rst = 0;		neg_edge();
 	full_cyc();
 	pos_edge();		add4 = 1;		neg_edge();
 	pos_edge();		add4 = 0;		neg_edge();
-	i = 15100;
+	i = 12000;
 	while (i > 0) begin 
 		full_cyc();
 		i = i - 1;
 	end
-end endtask
-
-task zero_flash; begin
-	pos_edge();		rst = 1;		neg_edge();
-	pos_edge();		rst = 0;		neg_edge();
-	i = 1000;
-	while (i > 0) begin 
-		full_cyc();
-		i = i - 1;
-	end
-end endtask
-
-task countdown_from_60; begin
-	pos_edge();		rst = 1;		neg_edge();
-	pos_edge();		rst = 0;		neg_edge();
 	full_cyc();
-	pos_edge();		add1 = 1;		neg_edge();
-	pos_edge();		add1 = 0;		neg_edge();
-	i = 6100;
+	pos_edge();		add2 = 1;		neg_edge();
+	pos_edge();		add2 = 0;		neg_edge();
+	i = 1000;
 	while (i > 0) begin 
 		full_cyc();
 		i = i - 1;
